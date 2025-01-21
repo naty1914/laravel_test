@@ -12,7 +12,7 @@
         <p><strong>About the Dojo:</strong></p>
         <p>{{ $ninja->dojo->description}}</p>
     </div>
-<form action="{{ route('ninjas.Destroy', $ninja->id)}} " method="POST">
+<form action="{{ route('ninjas.destroy', $ninja->id)}} " method="POST">
     @csrf
     @method('DELETE')
     <button type="submit" class="btn bg-red-500">Delete Ninja</button>

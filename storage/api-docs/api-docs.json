@@ -1,0 +1,169 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "APIs Ninja Network",
+        "contact": {
+            "email": "HcH2a@example.com"
+        },
+        "version": "1.0.0"
+    },
+    "paths": {
+        "/": {
+            "get": {
+                "tags": [
+                    "Ninjas"
+                ],
+                "operationId": "adfb21fa107d3419ffa5985abc09020b",
+                "responses": {
+                    "200": {
+                        "description": "Welcome page",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Ninja"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/ninjas/create": {
+            "get": {
+                "tags": [
+                    "Ninjas"
+                ],
+                "operationId": "9aec5059d501a2f84e33c5d6d295b4fb",
+                "responses": {
+                    "200": {
+                        "description": "A form to create ninjas",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Ninja"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/ninjas/{id}": {
+            "get": {
+                "tags": [
+                    "Ninjas"
+                ],
+                "summary": "Show a ninja",
+                "operationId": "232e5bba852954ae2d3db3f525fee950",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of the ninja",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Shows a ninja",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Ninja"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/ninjas": {
+            "post": {
+                "tags": [
+                    "Ninjas"
+                ],
+                "operationId": "3e5984cbdae79a81dbe929e69b038f74",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Ninja"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "List of ninjas",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Ninja"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "Ninja": {
+                "description": "Ninja model",
+                "properties": {
+                    "id": {
+                        "description": "ID of the ninja",
+                        "type": "integer"
+                    },
+                    "name": {
+                        "description": "Name of the ninja",
+                        "type": "string"
+                    },
+                    "skill": {
+                        "description": "Skill of the ninja",
+                        "type": "string"
+                    },
+                    "bio": {
+                        "description": "Biography of the ninja",
+                        "type": "string"
+                    },
+                    "dojos_id": {
+                        "description": "ID of the dojo the ninja belongs to",
+                        "type": "integer"
+                    }
+                },
+                "type": "object"
+            }
+        },
+        "securitySchemes": {
+            "bearerAuth": {
+                "type": "http",
+                "bearerFormat": "JWT",
+                "scheme": "bearer"
+            }
+        }
+    },
+    "tags": [
+        {
+            "name": "Ninjas",
+            "description": "Ninjas"
+        }
+    ]
+}

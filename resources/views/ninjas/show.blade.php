@@ -17,6 +17,8 @@
     @method('DELETE')
     <button type="submit" class="btn bg-red-500">Delete Ninja</button>
 </form>
+<a href="{{ route('ninjas.edit', $ninja->id) }}" class="btn btn-warning">Edit</a>
+
 </x-layout>
   
  

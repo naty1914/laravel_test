@@ -131,4 +131,30 @@ class NinjaController extends Controller
     $ninja->delete();
     return redirect()->route('ninjas.index')->with('success_delete', "Ninja: $ninja->name deleted successfully");
    }
+
+  public function edit( Ninja $ninja)
+{   
+
+    
+    $dojos = Dojos::all();
+    return view('ninjas.edit', ["ninja" => $ninja, "dojos"=> $dojos ]);
 }
+
+   public function update(Request $request, Ninja $ninja)
+{
+    // Validate incoming data
+    $validated = $request->validate([
+         'name' => 'required | string | max:255',
+            'skill' => 'required|integer|min:0|max:100',
+            'bio' => 'required | string  | min:20 |max:500',
+            'dojos_id' => 'required|exists:dojos,id'
+    ]);
+
+    // Update the ninja record
+    $ninja->update($validated);
+
+    // Redirect with success message
+    return redirect()->route('ninjas.index')->with('success', 'Ninja updated successfully!');
+}
+
+};                          

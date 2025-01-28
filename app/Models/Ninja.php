@@ -13,4 +13,5 @@ class Ninja extends Model
     public function dojo() {
         return $this->belongsTo(Dojos::class,'dojos_id');
     }
+    
 }

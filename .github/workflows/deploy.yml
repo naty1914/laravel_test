@@ -30,7 +30,6 @@ jobs:
           php artisan route:clear
           php artisan config:cache
           php artisan queue:restart
-          npm ci
           npm run prod
           php artisan optimize
           exit

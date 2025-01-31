@@ -1,4 +1,4 @@
-name: Test SSH Connection
+name: Test laravel demo Connection
 
 on:
   workflow_dispatch  # This allows you to manually trigger the workflow from GitHub UI
@@ -19,4 +19,5 @@ jobs:
           pwd
           sudo su laravel_demo
           pwd
-          cd /home/laravel_api/code
+          cd /home/laravel_demo/code
+          pwd

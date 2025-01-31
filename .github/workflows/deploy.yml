@@ -3,67 +3,40 @@ name: Deploy Laravel App
 on:
   push:
     branches:
-      - develop  # This runs only when changes are pushed to the "develop" branch
+      - develop
 
 jobs:
   deploy:
-    runs-on: ubuntu-latest  # Use Ubuntu environment
+    runs-on: ubuntu-latest
 
     steps:
     - name: Checkout repository
-      uses: actions/checkout@v3  # Check out your repository code
+      uses: actions/checkout@v3
 
-
-    - name: Clear caches and optimize
-      run: |
-        php artisan config:clear
-        php artisan cache:clear
-        php artisan view:clear
-        php artisan route:clear
-        php artisan config:cache  # Clear old caches and optimize app
+    - name: Decode SSH Key
+      run: echo "${{ secrets.SSH_PRIVATE_KEY_BASE64 }}" | base64 --decode > private_key && chmod 600 private_key
 
     - name: Deploy to Server
-      uses: appleboy/ssh-action@master  # SSH action to deploy to the server
+      uses: appleboy/ssh-action@master
       with:
-        host: ${{ secrets.SSH_HOST }}  # Server address from GitHub secrets
-        username: ${{ secrets.SSH_USER }}  # SSH username from GitHub secrets
-        key: ${{ secrets.SSH_PRIVATE_KEY }}  # SSH private key from GitHub secrets
+        host: ${{ secrets.SSH_HOST }}
+        username: ${{ secrets.SSH_USER }}
+        key: ${{ secrets.SSH_PRIVATE_KEY }}
         script: |
-          # Switch to the larave_demo user
           sudo su laravel_demo
-
-          # Navigate to the project directory
           cd /home/laravel_demo/code
-
-          # Pull the latest changes from the 'develop' branch
           git pull origin develop
-
-          # Install production dependencies
           composer install --no-dev --prefer-dist --optimize-autoloader
-
-          # Run migrations
           php artisan migrate --force
-
-          # Clear cache and optimize
           php artisan config:clear
           php artisan cache:clear
           php artisan view:clear
           php artisan route:clear
           php artisan config:cache
-
-          # Restart queues if you use them
           php artisan queue:restart
-
-          # Install and build production assets
           npm ci
           npm run prod
-
-          # Optimize the Laravel application
           php artisan optimize
-
-          # Exit from nati_api user session
           exit
-
-          # Now, as the ubuntu user, restart PHP-FPM and Nginx services
           sudo systemctl restart php8.3-fpm
           sudo systemctl reload nginx

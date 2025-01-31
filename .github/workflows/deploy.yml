@@ -17,7 +17,7 @@ jobs:
         script: |
           echo "✅ Successfully connected to EC2 instance!"
           pwd
-          sudo su laravel_demo
+          sudo -u laravel_demo -i
           pwd
           cd /home/laravel_demo/code
           pwd

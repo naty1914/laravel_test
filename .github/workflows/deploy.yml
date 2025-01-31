@@ -13,11 +13,6 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v3  # Check out your repository code
 
-    - name: Install dependencies
-      run: composer install --no-dev --prefer-dist --optimize-autoloader  # Install production dependencies
-
-    - name: Run migrations
-      run: php artisan migrate --force  # Run database migrations
 
     - name: Clear caches and optimize
       run: |
@@ -34,8 +29,8 @@ jobs:
         username: ${{ secrets.SSH_USER }}  # SSH username from GitHub secrets
         key: ${{ secrets.SSH_PRIVATE_KEY }}  # SSH private key from GitHub secrets
         script: |
-          # Switch to the nati_api user
-          sudo su nati_api
+          # Switch to the larave_demo user
+          sudo su laravel_demo
 
           # Navigate to the project directory
           cd /home/laravel_demo/code

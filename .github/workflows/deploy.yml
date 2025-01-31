@@ -22,7 +22,7 @@ jobs:
         script: |
           sudo su laravel_demo
           pwd
-          cd /home/laravel_api/code
+          cd /home/laravel_demo/code
           git pull origin develop
           composer install --no-dev --prefer-dist --optimize-autoloader
           php artisan migrate --force

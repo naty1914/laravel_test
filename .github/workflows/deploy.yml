@@ -21,20 +21,15 @@ jobs:
         key: ${{ secrets.SSH_PRIVATE_KEY }}
         script: |
           sudo su laravel_demo
-          cd
-          cd code
+          pwd
+          cd /home/laravel_api/code
           git pull origin develop
           composer install --no-dev --prefer-dist --optimize-autoloader
           php artisan migrate --force
           php artisan config:clear
-          php artisan cache:clear
-          php artisan view:clear
-          php artisan route:clear
-          php artisan config:cache
-          php artisan queue:restart
-          npm ci
+          
           npm run prod
-          php artisan optimize
+          
           exit
           sudo systemctl restart php8.3-fpm
           sudo systemctl reload nginx

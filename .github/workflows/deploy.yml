@@ -23,6 +23,4 @@ jobs:
           composer install --no-dev --prefer-dist --optimize-autoloader
           php artisan migrate --force
           php artisan config:clear
-          npm install
-          npm run dev
-          php artisan optimize
+          

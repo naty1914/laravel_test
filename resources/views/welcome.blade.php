@@ -8,7 +8,7 @@
     @vite('resources/css/app.css')
 </head>
 <body class="text-center px-8  py-12">
-    <h1>Welcome to the Ninja Network</h1>
+    <h1>Welcome to the Nati Ninja Network</h1>
     <p> Click the link below to login</p>
         <a href="/ninjas" class="btn">Find Ninjas!</a>
 </body>

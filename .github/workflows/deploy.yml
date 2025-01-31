@@ -21,7 +21,8 @@ jobs:
         key: ${{ secrets.SSH_PRIVATE_KEY }}
         script: |
           sudo su laravel_demo
-          cd /home/laravel_demo/code
+          cd
+          cd code
           git pull origin develop
           composer install --no-dev --prefer-dist --optimize-autoloader
           php artisan migrate --force

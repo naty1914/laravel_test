@@ -1,42 +1,18 @@
-name: Deploy Laravel App
+name: Test SSH Connection
 
 on:
-  push:
-    branches:
-      - develop
+  workflow_dispatch  # This allows you to manually trigger the workflow from GitHub UI
 
 jobs:
-  deploy:
+  test-ssh:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v3
-
-    - name: Decode SSH Key
-      run: echo "${{ secrets.SSH_PRIVATE_KEY_BASE64 }}" | base64 --decode > private_key && chmod 600 private_key
-
-    - name: Deploy to Server
+    - name: Test SSH Connection
       uses: appleboy/ssh-action@master
       with:
         host: ${{ secrets.SSH_HOST }}
         username: ${{ secrets.SSH_USER }}
         key: ${{ secrets.SSH_PRIVATE_KEY }}
         script: |
-          sudo su laravel_demo
-          cd /home/laravel_demo/code
-          git pull origin develop
-          composer install --no-dev --prefer-dist --optimize-autoloader
-          php artisan migrate --force
-          php artisan config:clear
-          php artisan cache:clear
-          php artisan view:clear
-          php artisan route:clear
-          php artisan config:cache
-          php artisan queue:restart
-          npm ci
-          npm run prod
-          php artisan optimize
-          exit
-          sudo systemctl restart php8.3-fpm
-          sudo systemctl reload nginx
+          echo "✅ Successfully connected to EC2 instance!"
